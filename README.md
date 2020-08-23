@@ -50,7 +50,7 @@ modified.
 
 Remove `$this->loadComponent('RequestHandler');` from your ErrorControllers initialize method and add 
 `parent::initialize()` in its place. You can also remove your ErrorControllers initialize method entirely if you 
-don't need it. Otherwise, HAL+JSON and JSON-LD requests will not render as HTML instead of JSON.
+don't need it. Otherwise, HAL+JSON and JSON-LD requests will render as HTML instead of JSON.
 
 ## Usage
 
