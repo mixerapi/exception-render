@@ -1,6 +1,6 @@
 {
     "name": "mixerapi/exception-render",
-    "description": "CakePHP skeleton plugin",
+    "description": "Handles rendering entity validation errors and other exceptions for your API",
     "type": "project",
     "license": "MIT",
     "keywords": ["cakephp"],
