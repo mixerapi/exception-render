@@ -12,6 +12,9 @@
 
 This plugin handles rendering entity validation errors and other exceptions for your API.
 
+- Adds validation errors to the response for failed save operations (post, put, and patch)
+- Adds the short name of the Exception thrown to the response
+
 ## Installation 
 
 ```bash
@@ -54,9 +57,31 @@ don't need it. Otherwise, HAL+JSON and JSON-LD requests will render as HTML inst
 
 ## Usage
 
-Define your Validations as normal in your Table classes and `MixerApiExceptionRenderer` handles the rest 
-by attaching a listener to the `afterMarshall` event. If a validation fails then a `ValidationException` is thrown 
-and rendered with an HTTP 422 status code:
+Define your Validations as normal in your Table classes and `MixerApiExceptionRenderer` handles the rest by attaching 
+a listener to the [afterMarshall](https://book.cakephp.org/4/en/orm/table-objects.html#aftermarshal) event which fires 
+when request data is merged into entities during patchEntity() or newEntity() calls. If a validation fails then a 
+`ValidationException` is thrown and rendered with an HTTP 422 status code.
+
+Example controller action:
+
+```php
+public function add()
+{
+    $this->request->allowMethod('post');
+    $actor = $this->Actors->newEmptyEntity();
+    $actor = $this->Actors->patchEntity($actor, $this->request->getData()); // potential ValidationException here
+    if ($this->Actors->save($actor)) {
+        $this->viewBuilder()->setOption('serialize', 'actor');
+        $this->set('actor', $actor);
+
+        return;
+    }
+    throw new \Exception("Record failed to save");
+}
+
+```
+
+Output:
 
 ```json
 {
@@ -75,8 +100,21 @@ and rendered with an HTTP 422 status code:
 }
 ```
 
-For non-validation based exceptions the output is similar to CakePHP native output with the addition of an exception 
-attribute. For example, a `MethodNotAllowedException` would result in: 
+Using the controller example from above, we can catch the exception if desired and perform additional logic:
+
+```php
+try {
+    $actor = $this->Actors->newEmptyEntity();
+    $actor = $this->Actors->patchEntity($actor, $this->request->getData());
+} catch (\MixerApi\ExceptionRender\ValidationException $e) {
+    // do something here
+}
+```
+
+### Exceptions
+
+For non-validation based exceptions, even your projects own custom exceptions, the output is similar to CakePHP native 
+output with the addition of an exception attribute. For example, a `MethodNotAllowedException` would result in: 
 
 ```json
 {
@@ -86,6 +124,20 @@ attribute. For example, a `MethodNotAllowedException` would result in:
   "code": 405
 }
 ```
+
+If for instance you have a custom exception that is thrown, such as `InventoryExceededException`, you would see: 
+
+```json
+{
+  "exception": "InventoryExceededException",
+  "message": "No inventory exists",
+  "url": "/requested-url",
+  "code": 500
+}
+```
+
+Providing an Exception name, in conjunction with the status code already provided by CakePHP, enables API clients 
+to tailor their exception handling.
 
 ## Unit Tests
 
