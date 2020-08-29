@@ -20,13 +20,4 @@ class Plugin extends BasePlugin
 
         parent::bootstrap($app);
     }
-
-    /**
-     * @param \Cake\Console\CommandCollection $commands CommandCollection
-     * @return \Cake\Console\CommandCollection
-     */
-    public function console(CommandCollection $commands): CommandCollection
-    {
-        return $commands;
-    }
 }

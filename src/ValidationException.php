@@ -27,10 +27,7 @@ class ValidationException extends Exception
     {
         $this->entity = $entity;
 
-        if (empty($message)) {
-            $message = 'Error saving resource';
-        }
-        parent::__construct($message, null, null);
+        parent::__construct($message ?? 'Error saving resource', null, null);
     }
 
     /**

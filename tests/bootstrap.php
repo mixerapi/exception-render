@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use Cake\Core\Plugin;
 use Cake\Cache\Cache;
 use Cake\Chronos\Chronos;
 use Cake\Core\Configure;
@@ -48,14 +49,14 @@ define('TMP', sys_get_temp_dir() . DS);
 define('LOGS', TMP . 'logs' . DS);
 define('CACHE', TMP . 'cache' . DS);
 define('SESSIONS', TMP . 'sessions' . DS);
-
+define('CONFIG', ROOT . 'config');
 define('CAKE_CORE_INCLUDE_PATH', dirname(__DIR__) . DS . 'vendor/cakephp/cakephp');
 define('CORE_PATH', CAKE_CORE_INCLUDE_PATH . DS);
 define('CAKE', CORE_PATH . 'src' . DS);
 define('CORE_TESTS', CORE_PATH . 'tests' . DS);
 define('CORE_TEST_CASES', CORE_TESTS . 'TestCase');
-define('TEST_APP', CORE_TESTS . 'test_app' . DS);
 define('APP', ROOT . 'App' . DS);
+define('TEST_APP', TEST . 'test_app' . DS);
 
 // phpcs:disable
 @mkdir(LOGS);
@@ -72,9 +73,9 @@ require_once CORE_PATH . 'config/bootstrap.php';
 date_default_timezone_set('UTC');
 mb_internal_encoding('UTF-8');
 
-Configure::write('debug', true);
+//Configure::write('debug', true);
 Configure::write('App', [
-    'namespace' => 'App',
+    'namespace' => 'TestApp',
     'encoding' => 'UTF-8',
     'base' => false,
     'baseUrl' => false,
@@ -88,7 +89,16 @@ Configure::write('App', [
         'plugins' => [TEST_APP . 'Plugin' . DS],
         'templates' => [TEST_APP . 'templates' . DS],
         'locales' => [TEST_APP . 'resources' . DS . 'locales' . DS],
-    ],
+    ]
+]);
+
+Configure::write('debug', true);
+Configure::write('Error', [
+    'errorLevel' => E_ALL,
+    'exceptionRenderer' => MixerApi\ExceptionRender\MixerApiExceptionRenderer::class,
+    'skipLog' => [],
+    'log' => true,
+    'trace' => true,
 ]);
 
 Cache::setConfig([
