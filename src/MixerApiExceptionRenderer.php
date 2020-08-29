@@ -5,8 +5,8 @@ namespace MixerApi\ExceptionRender;
 
 use Cake\Core\Configure;
 use Cake\Core\Exception\Exception as CakeException;
-use Cake\Error\ExceptionRenderer;
 use Cake\Error\Debugger;
+use Cake\Error\ExceptionRenderer;
 use Psr\Http\Message\ResponseInterface;
 use ReflectionClass;
 
@@ -62,14 +62,14 @@ class MixerApiExceptionRenderer extends ExceptionRenderer
             'message' => $message,
             'url' => h($url),
             'error' => $exception,
-            'code' => $code
+            'code' => $code,
         ];
 
         $serialize = [
             'exception',
             'message',
             'url',
-            'code'
+            'code',
         ];
 
         if ($this->error instanceof ValidationException) {

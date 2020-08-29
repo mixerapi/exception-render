@@ -14,14 +14,13 @@ class ValidationException extends Exception
     protected $_defaultCode = 422;
 
     /**
-     * @var EntityInterface
+     * @var \Cake\Datasource\EntityInterface
      */
     private $entity;
 
     /**
-     * Constructor
-     *
      * @param string|null $message a custom message, otherwise `Error saving resource` is used
+     * @param \Cake\Datasource\EntityInterface $entity EntityInterface
      */
     public function __construct(?string $message = null, EntityInterface $entity)
     {
