@@ -47,14 +47,6 @@ In your `config/app.php` file change the default `exceptionRenderer`:
     ],
 ```
 
-If you are loading requests formats other than XML or JSON into the RequestHandler component, such as HAL+JSON or 
-JSON-LD in your `AppController->initialize()` method, then the default `App\Controller\ErrorController` will need to be
-modified. 
-
-Remove `$this->loadComponent('RequestHandler');` from your ErrorControllers initialize method and add 
-`parent::initialize()` in its place. You can also remove your ErrorControllers initialize method entirely if you 
-don't need it. Otherwise, HAL+JSON and JSON-LD requests will render as HTML instead of JSON.
-
 ## Usage
 
 Define your Validations as normal in your Table classes and `MixerApiExceptionRenderer` handles the rest by attaching 
