@@ -81,14 +81,26 @@ Output:
   "message": "Error saving resource `Actor`",
   "url": "/actors",
   "code": 422,
-  "invalid_params": {
-    "first_name": {
-      "_empty": "This field cannot be left empty"
+  "violations": [
+    {
+      "propertyPath": "first_name",
+      "messages": [
+        {
+          "rule": "_required",
+          "message": "This field is required"
+        }
+      ]
     },
-    "last_name": {
-      "_empty": "This field cannot be left empty"
+    {
+      "propertyPath": "last_name",
+      "messages": [
+        {
+          "rule": "_required",
+          "message": "This field is required"
+        }
+      ]
     }
-  }
+  ]
 }
 ```
 
