@@ -34,6 +34,16 @@ class ValidationException extends Exception
      */
     public function getErrors(): array
     {
-        return $this->entity->getErrors();
+        $return = [];
+
+        foreach ($this->entity->getErrors() as $propertyName => $propertyErrors) {
+            $property = ['propertyPath' => $propertyName];
+            foreach ($propertyErrors as $rule => $message) {
+                $property['messages'][] = ['rule' => $rule, 'message' => $message];
+            }
+            $return[] = $property;
+        }
+
+        return $return;
     }
 }

@@ -73,9 +73,9 @@ class MixerApiExceptionRenderer extends ExceptionRenderer
         ];
 
         if ($this->error instanceof ValidationException) {
-            $viewVars['invalid_params'] = $this->error->getErrors();
+            $viewVars['violations'] = $this->error->getErrors();
             $viewVars['message'] = $this->error->getMessage();
-            array_push($serialize, 'invalid_params');
+            array_push($serialize, 'violations');
         }
 
         $isDebug = Configure::read('debug');
