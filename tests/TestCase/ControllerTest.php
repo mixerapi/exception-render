@@ -2,6 +2,7 @@
 
 namespace MixerApi\ExceptionRender\Test\TestCase;
 
+use Cake\Collection\Collection;
 use Cake\TestSuite\TestCase;
 use Cake\TestSuite\IntegrationTestTrait;
 
@@ -34,7 +35,18 @@ class ControllerTest extends TestCase
         $this->assertEquals('ValidationException', $object->exception);
         $this->assertEquals('Error saving resource `Actor`', $object->message);
         $this->assertEquals(422, $object->code);
-        $this->assertTrue(isset($object->invalid_params->first_name));
-        $this->assertTrue(isset($object->invalid_params->last_name));
+        $this->assertCount(2, $object->violations);
+
+        $violation = (new Collection($object->violations))
+            ->filter(function($violation){
+                return $violation->propertyPath == 'first_name';
+            })
+            ->first();
+        $this->assertIsObject($violation);
+        $this->assertCount(1, $violation->messages);
+
+        $message = reset($violation->messages);
+        $this->assertEquals('_empty', $message->rule);
+        $this->assertEquals('This field cannot be left empty', $message->message);
     }
 }
