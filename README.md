@@ -15,6 +15,12 @@ This plugin handles rendering entity validation errors and other exceptions for 
 - Adds validation errors to the response for failed save operations (post, put, and patch)
 - Adds the short name of the Exception thrown to the response
 
+## Table of Contents
+
+- [Installation](#installation)
+- [Setup](#setup)
+- [Usage](#usage)
+
 ## Installation 
 
 ```bash
