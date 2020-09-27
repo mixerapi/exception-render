@@ -8,7 +8,8 @@
 [![CakePHP](https://img.shields.io/badge/cakephp-%3E%3D%204.0-red?logo=cakephp)](https://book.cakephp.org/4/en/index.html)
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.2-8892BF.svg?logo=php)](https://php.net/)
 
-!!! warning This is an alpha stage plugin.
+!!! warning "" 
+    This is an alpha stage plugin.
 
 This plugin handles rendering entity validation errors and other exceptions for your API.
 
@@ -19,7 +20,8 @@ Read more at [MixerAPI.com](https://mixerapi.com).
 
 ## Installation 
 
-!!! tip You can skip this step if you have MixerApi installed. 
+!!! tip "" 
+    You can skip this step if you have MixerApi installed. 
 
 ```console
 composer require mixerapi/exception-render
@@ -42,13 +44,13 @@ public function bootstrap(): void
 In your `config/app.php` file change the default `exceptionRenderer`:
 
 ```php
-    'Error' => [
-        'errorLevel' => E_ALL,
-        'exceptionRenderer' => MixerApi\ExceptionRender\MixerApiExceptionRenderer::class,
-        'skipLog' => [],
-        'log' => true,
-        'trace' => true,
-    ],
+'Error' => [
+    'errorLevel' => E_ALL,
+    'exceptionRenderer' => MixerApi\ExceptionRender\MixerApiExceptionRenderer::class,
+    'skipLog' => [],
+    'log' => true,
+    'trace' => true,
+],
 ```
 
 ## Usage
