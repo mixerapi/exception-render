@@ -8,16 +8,18 @@
 [![CakePHP](https://img.shields.io/badge/cakephp-%3E%3D%204.0-red?logo=cakephp)](https://book.cakephp.org/4/en/index.html)
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.2-8892BF.svg?logo=php)](https://php.net/)
 
-*Note: This is an alpha stage plugin*
+!!! warning This is an alpha stage plugin.
 
 This plugin handles rendering entity validation errors and other exceptions for your API.
 
 - Adds validation errors to the response for failed save operations (post, put, and patch)
 - Adds the short name of the Exception thrown to the response
 
+Read more at [MixerAPI.com](https://mixerapi.com).
+
 ## Installation 
 
-You can skip this step if you have MixerApi installed.
+!!! tip You can skip this step if you have MixerApi installed. 
 
 ```console
 composer require mixerapi/exception-render
